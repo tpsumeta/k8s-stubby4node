@@ -5,13 +5,12 @@ metadata:
     app: stubby4node-service
   name: stubby4node-service
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - name: default-port
-      port: 8080
+      port: 80
       protocol: TCP
       targetPort: 8080
-      nodePort: 30000
   selector:
     app: stubby4node-pod
 ---
@@ -36,7 +35,7 @@ spec:
             name: config-stubby4node
       containers:
       - name: stubby4node
-        image: tpsumeta/stubby4node:latest
+        image: tpsumeta/stubby4node:amd64
         env:
           - name: YAML_CONFIG
             value: "main.yaml"
@@ -51,7 +50,7 @@ spec:
           - name: WITH_WATCH
             value: "--watch"
         ports:
-        - containerPort: 8080
+        - containerPort: 80
           name: http-port
         - containerPort: 8889
           name: tls-port
