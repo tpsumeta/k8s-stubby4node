@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: default
+  name: config-stubby4node
+data:
+  main.yaml: |-
+    - request:
+        method:
+          - POST
+        url: /sample
+      response:
+        status: 200
+        body: >
+          {
+            "status": "success",
+            "data": {
+              "user": {
+                "id": 12345,
+                "username": "john_doe",
+                "email": "john@example.com"
+              },
+              "message": "User data retrieved successfully"
+            }
+          }
+        headers:
+          content-type: application/json
